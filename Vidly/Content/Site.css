@@ -22,3 +22,11 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbarHeaderLeft td{
+    text-align:left;
+}
+
+.navbarHeaderRight td {
+    text-align: right;
+}
