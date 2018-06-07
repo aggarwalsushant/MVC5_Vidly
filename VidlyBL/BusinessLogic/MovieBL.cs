@@ -15,14 +15,14 @@ namespace VidlyBL.BusinessLogic
             IList<Models.Movie> modelMovies = new List<Models.Movie>();
             if (id != -1)
             {
-                DAL.Movie movie = _dal.Movies.Include("Customer").
+                DAL.Movie movie = _dal.Movies.Include("Customer").Include("MovieCategory"). // Including all foreign key objects
                     Where(x => x.MovieId == id).FirstOrDefault();
 
                 if (movie != null)
                     modelMovies.Add(MovieMappingProvider.Instance.Map(movie));
             }
             else
-                _dal.Movies.Include("Customer").ToList().ForEach(x => modelMovies.Add(MovieMappingProvider.Instance.Map(x)));
+                _dal.Movies.Include("Customer").Include("MovieCategory").ToList().ForEach(x => modelMovies.Add(MovieMappingProvider.Instance.Map(x))); // Including all foreign key objects
 
             return modelMovies;
         }
