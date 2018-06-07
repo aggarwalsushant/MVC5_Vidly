@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Vidly.Models;
+using VidlyModels.Models;
 using Vidly.ViewModels;
 using Vidly.UtilityData;
+using VidlyBL.BusinessLogic;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
+        MovieBL movieBL = new MovieBL();
         // GET: Movies/Random
         public ActionResult Random()
         {
@@ -27,15 +29,10 @@ namespace Vidly.Controllers
             
         }
 
-        public ActionResult Edit(int Id)
-        {
-            return Content("id=" + Id);
-        }
-
         //movies
-        public ActionResult Index(int? pageIndex, string sortBy)
+        public ActionResult Index()
         {
-            return View(DataSimulator.GetAllMovies());
+            return View(movieBL.GetMovieDetails() as IEnumerable<Movie>);
 
         }
 

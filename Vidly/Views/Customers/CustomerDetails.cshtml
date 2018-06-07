@@ -1,9 +1,9 @@
-﻿@model Vidly.Models.Customer
+﻿@model VidlyModels.Models.Customer
 
 @{
     ViewBag.Title = "CustomerDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>@Model.Name</h2>
-
+<p></p>
+<h2>@(Model == null ? "Customer not found in database. Please check again" : Model.Name)</h2>
