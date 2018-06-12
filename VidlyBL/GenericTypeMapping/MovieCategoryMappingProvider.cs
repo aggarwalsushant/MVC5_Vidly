@@ -4,7 +4,7 @@ using Models = VidlyModels.Models;
 
 namespace VidlyBL.GenericTypeMapping
 {
-    public sealed class MovieCategoryMappingProvider : IMappingProvider, IConverter<Models.Category,DAL.MovieCategory>
+    public sealed class MovieCategoryMappingProvider : IMappingProvider<Models.Category, DAL.MovieCategory>, IConverter<Models.Category, DAL.MovieCategory>
     {
         #region constructor
         private static readonly Lazy<MovieCategoryMappingProvider> _instance =
@@ -33,11 +33,15 @@ namespace VidlyBL.GenericTypeMapping
 
         public Models.Category Map(DAL.MovieCategory destination)
         {
-            return new Models.Category()
+            if (destination != null)
             {
-                CategoryId = destination.CategoryId,
-                CategoryName = destination.CategoryName
-            };
+                return new Models.Category()
+                {
+                    CategoryId = destination.CategoryId,
+                    CategoryName = destination.CategoryName
+                };
+            }
+            return null;
         }
 
         private Models.Category map(DAL.MovieCategory input)

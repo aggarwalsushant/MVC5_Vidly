@@ -30,6 +30,7 @@ namespace VidlyDB
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Movie> Movies { get; set; }
         public virtual DbSet<MovieCategory> MovieCategories { get; set; }
+        public virtual DbSet<MembershipType> MembershipTypes { get; set; }
     
         public virtual ObjectResult<SP_GetAllMovies_Result> SP_GetAllMovies()
         {
@@ -44,7 +45,5 @@ namespace VidlyDB
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetMovieById_Result>("SP_GetMovieById", idParameter);
         }
-    
-
     }
 }

@@ -15,6 +15,8 @@ namespace VidlyBL.DataAccess
 
         public static VidlyEntities Instance => _instance.Value;
         private VidlyEntitiesSingleton() { }
+
+        ~VidlyEntitiesSingleton() => _instance?.Value.Dispose();
         #endregion
     }
 }

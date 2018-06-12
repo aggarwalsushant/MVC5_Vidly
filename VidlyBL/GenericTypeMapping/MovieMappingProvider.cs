@@ -4,7 +4,7 @@ using Models=VidlyModels.Models;
 
 namespace VidlyBL.GenericTypeMapping
 {
-    public sealed class MovieMappingProvider : IMappingProvider, IConverter<Models.Movie,DAL.Movie>
+    public sealed class MovieMappingProvider : IConverter<Models.Movie,DAL.Movie>
     {
         #region constructor
         private static readonly Lazy<MovieMappingProvider> _instance =
@@ -14,15 +14,9 @@ namespace VidlyBL.GenericTypeMapping
         private MovieMappingProvider() { }
         #endregion
 
-        IConverter<Models.Category, DAL.MovieCategory> movieCategoryMapper = MovieCategoryMappingProvider.Instance;
+        IConverter<Models.Category, DAL.MovieCategory> movieCategoryMapper = null;// MovieCategoryMappingProvider.Instance;
         IConverter<Models.Customer, DAL.Customer> customerMapper = CustomerMappingProvider.Instance;
-        public T Map<T>(IMappable input)
-        {
-            // TypeB cannot be cast directly from TypeA
-            // but it can be cast from object.
-            object result = map(input as DAL.Movie);
-            return (T)result;
-        }
+        
 
         public DAL.Movie Map(Models.Movie source)
         {

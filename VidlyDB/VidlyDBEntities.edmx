@@ -12,6 +12,16 @@
           <Property Name="CustomerId" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="100" />
           <Property Name="Address" Type="varchar" MaxLength="100" />
+          <Property Name="MembershipTypeId" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="MembershipType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" Nullable="false" />
+          <Property Name="SignUpFee" Type="smallint" Nullable="false" />
+          <Property Name="DurationInMonths" Type="tinyint" Nullable="false" />
+          <Property Name="DiscountRate" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
@@ -53,12 +63,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_MemType_Customer_MemTypeId">
+          <End Role="MembershipType" Type="Self.MembershipType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MembershipType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="MembershipTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="SP_GetAllMovies" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SP_GetMovieById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Id" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="VidlyModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MembershipType" EntityType="Self.MembershipType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MovieCategory" EntityType="Self.MovieCategory" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CategoryMovie" Association="Self.FK_CategoryMovie">
@@ -68,6 +93,10 @@
           <AssociationSet Name="FK_CustomerMovie" Association="Self.FK_CustomerMovie">
             <End Role="Customer" EntitySet="Customer" />
             <End Role="Movie" EntitySet="Movie" />
+          </AssociationSet>
+          <AssociationSet Name="fk_MemType_Customer_MemTypeId" Association="Self.fk_MemType_Customer_MemTypeId">
+            <End Role="MembershipType" EntitySet="MembershipType" />
+            <End Role="Customer" EntitySet="Customer" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -82,6 +111,8 @@
           <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Movies" Relationship="VidlyModel.FK_CustomerMovie" FromRole="Customer" ToRole="Movie" />
+          <Property Name="MembershipTypeId" Type="Byte" />
+          <NavigationProperty Name="MembershipType" Relationship="VidlyModel.fk_MemType_Customer_MemTypeId" FromRole="Customer" ToRole="MembershipType" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
@@ -118,8 +149,11 @@
           <FunctionImport Name="SP_GetMovieById" ReturnType="Collection(VidlyModel.SP_GetMovieById_Result)">
           <Parameter Name="Id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="SP_GetAllMovies1" ReturnType="Collection(VidlyModel.SP_GetAllMovies1_Result)" />
-          <FunctionImport Name="SP_GetAllMovies2" ReturnType="Collection(VidlyModel.SP_GetAllMovies2_Result)" />
+          <EntitySet Name="MembershipTypes" EntityType="VidlyModel.MembershipType" />
+          <AssociationSet Name="fk_MemType_Customer_MemTypeId" Association="VidlyModel.fk_MemType_Customer_MemTypeId">
+            <End Role="MembershipType" EntitySet="MembershipTypes" />
+            <End Role="Customer" EntitySet="Customers" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_CustomerMovie">
           <End Type="VidlyModel.Customer" Role="Customer" Multiplicity="0..1" />
@@ -157,18 +191,30 @@
           <Property Type="Int32" Name="CategoryId" Nullable="true" />
           <Property Type="Int32" Name="CustomerId" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="SP_GetAllMovies1_Result">
-          <Property Type="Int32" Name="MovieId" Nullable="false" />
-          <Property Type="String" Name="MovieName" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="CategoryId" Nullable="true" />
-          <Property Type="Int32" Name="CustomerId" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="SP_GetAllMovies2_Result">
-          <Property Type="Int32" Name="MovieId" Nullable="false" />
-          <Property Type="String" Name="MovieName" Nullable="true" MaxLength="100" />
-          <Property Type="Int32" Name="CategoryId" Nullable="true" />
-          <Property Type="Int32" Name="CustomerId" Nullable="true" />
-        </ComplexType>
+        <EntityType Name="MembershipType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Byte" Nullable="false" />
+          <Property Name="SignUpFee" Type="Int16" Nullable="false" />
+          <Property Name="DurationInMonths" Type="Byte" Nullable="false" />
+          <Property Name="DiscountRate" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="Customers" Relationship="VidlyModel.fk_MemType_Customer_MemTypeId" FromRole="MembershipType" ToRole="Customer" />
+        </EntityType>
+        <Association Name="fk_MemType_Customer_MemTypeId">
+          <End Type="VidlyModel.MembershipType" Role="MembershipType" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="VidlyModel.Customer" Role="Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MembershipType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Customer">
+              <PropertyRef Name="MembershipTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -178,6 +224,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="VidlyModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="MembershipTypeId" ColumnName="MembershipTypeId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -212,9 +259,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_GetAllMovies2" FunctionName="VidlyModel.Store.SP_GetAllMovies">
+          <FunctionImportMapping FunctionImportName="SP_GetAllMovies" FunctionName="VidlyModel.Store.SP_GetAllMovies">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="VidlyModel.SP_GetAllMovies2_Result">
+              <ComplexTypeMapping TypeName="VidlyModel.SP_GetAllMovies_Result">
                 <ScalarProperty Name="MovieId" ColumnName="MovieId" />
                 <ScalarProperty Name="MovieName" ColumnName="MovieName" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
@@ -222,6 +269,16 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="MembershipTypes">
+            <EntityTypeMapping TypeName="VidlyModel.MembershipType">
+              <MappingFragment StoreEntitySet="MembershipType">
+                <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
+                <ScalarProperty Name="DurationInMonths" ColumnName="DurationInMonths" />
+                <ScalarProperty Name="SignUpFee" ColumnName="SignUpFee" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

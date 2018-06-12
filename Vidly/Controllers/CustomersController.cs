@@ -16,7 +16,9 @@ namespace Vidly.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            return View(customerBL.GetCustomerDetails() as IEnumerable<Customer>);
+            //return View(customerBL.GetCustomerDetails() as IEnumerable<Customer>);
+            return View(customerBL.GetAllCustomers() as IEnumerable<Customer>);
+
         }
 
         [Route("Details/{id}")]

@@ -37,6 +37,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Mapster, Version=3.1.8.0, Culture=neutral, PublicKeyToken=2f39883af23c29a8, processorArchitecture=MSIL">
+      <HintPath>..\packages\Mapster.3.1.8\lib\net45\Mapster.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -50,8 +53,10 @@
     <Compile Include="BusinessLogic\CategoryBL.cs" />
     <Compile Include="BusinessLogic\CustomerBL.cs" />
     <Compile Include="BusinessLogic\MovieBL.cs" />
+    <Compile Include="BusinessLogic\ObjectAdapterConfigurations.cs" />
     <Compile Include="DataAccess\VidlyEntitiesSingleton.cs" />
     <Compile Include="GenericTypeMapping\CustomerMappingProvider.cs" />
+    <Compile Include="GenericTypeMapping\DataMapper.cs" />
     <Compile Include="GenericTypeMapping\MapperInterfaces.cs" />
     <Compile Include="GenericTypeMapping\MovieCategoryMappingProvider.cs" />
     <Compile Include="GenericTypeMapping\MovieMappingProvider.cs" />
@@ -59,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VidlyDB\VidlyDB.csproj">

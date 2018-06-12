@@ -32,8 +32,12 @@ namespace Vidly.Controllers
         //movies
         public ActionResult Index()
         {
-            return View(movieBL.GetMovieDetails() as IEnumerable<Movie>);
+            return View(movieBL.GetMovieDetailsBySp() as IEnumerable<Movie>);
+        }
 
+        public ActionResult Details(int id)
+        {
+            return View(movieBL.GetMovieDetails(id) as IEnumerable<Movie>);
         }
 
         [Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]

@@ -52,6 +52,9 @@
     <Compile Include="Customer.cs">
       <DependentUpon>VidlyDBEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="MembershipType.cs">
+      <DependentUpon>VidlyDBEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Movie.cs">
       <DependentUpon>VidlyDBEntities.tt</DependentUpon>
     </Compile>

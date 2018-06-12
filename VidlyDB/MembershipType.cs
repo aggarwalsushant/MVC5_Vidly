@@ -12,21 +12,20 @@ namespace VidlyDB
     using System;
     using System.Collections.Generic;
     
-    public partial class Customer
+    public partial class MembershipType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Customer()
+        public MembershipType()
         {
-            this.Movies = new HashSet<Movie>();
+            this.Customers = new HashSet<Customer>();
         }
     
-        public int CustomerId { get; set; }
-        public string Name { get; set; }
-        public string Address { get; set; }
-        public Nullable<byte> MembershipTypeId { get; set; }
+        public byte Id { get; set; }
+        public short SignUpFee { get; set; }
+        public byte DurationInMonths { get; set; }
+        public byte DiscountRate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Movie> Movies { get; set; }
-        public virtual MembershipType MembershipType { get; set; }
+        public virtual ICollection<Customer> Customers { get; set; }
     }
 }

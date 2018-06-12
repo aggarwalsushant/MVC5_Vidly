@@ -7,9 +7,11 @@
       <Diagram DiagramId="247d8cf3b6ad4bc3a9155934a98f1d12" Name="Diagram1" ZoomLevel="59">
         <EntityTypeShape EntityType="VidlyModel.Customer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="VidlyModel.Movie" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="VidlyModel.MovieCategory" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VidlyModel.MovieCategory" Width="1.5" PointX="1.5" PointY="4" IsExpanded="true" />
         <AssociationConnector Association="VidlyModel.FK_CustomerMovie" />
         <AssociationConnector Association="VidlyModel.FK_CategoryMovie" />
+        <EntityTypeShape EntityType="VidlyModel.MembershipType" Width="1.5" PointX="0.75" PointY="6.875" />
+        <AssociationConnector Association="VidlyModel.fk_MemType_Customer_MemTypeId" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

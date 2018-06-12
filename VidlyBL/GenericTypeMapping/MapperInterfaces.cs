@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace VidlyBL.GenericTypeMapping
 {
-    public interface IMappable { }
-
-    public interface IMappingProvider
+    public interface IMappable
     {
-        T Map<T>(IMappable input);
+
+    }
+    public interface IMappingProvider<TSource, TDestination>
+    {
+        TDestination Map(TSource input);
     }
 
-    interface IConverter<TSource,TDestination>
+    public interface IConverter<TSource,TDestination>
     {
         TDestination Map(TSource source);
 
