@@ -11,6 +11,8 @@ namespace VidlyBL.BusinessLogic
         {
             CustomerModelConfigurations();
             MovieModelConfigurations();
+            MovieCategoryConfigurations();
+            TypeAdapterConfig.GlobalSettings.Default.PreserveReference(true);
         }
         public static void RegisterConfigurations()
         {
@@ -44,6 +46,9 @@ namespace VidlyBL.BusinessLogic
                 //.Map(dest => dest.CategoryId, source => source.CategoryDetails.CategoryId)
                 //.Map(dest => dest.CustomerId, source => source.CustomerDetails.Id)
                 .Map(dest => dest.Customer, source => source.CustomerDetails);
+        }
+        private static void MovieCategoryConfigurations()
+        {
         }
     }
 }

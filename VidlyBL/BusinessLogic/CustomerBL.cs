@@ -14,11 +14,6 @@ namespace VidlyBL.BusinessLogic
         static CustomerBL()
         {
             ObjectAdapterConfigurations.RegisterConfigurations();
-            //TypeAdapterConfig<DAL.Customer, Models.Customer>.ForType().
-            //    Map(dest => dest.Id, source => source.CustomerId);
-
-            //TypeAdapterConfig<Models.Customer, DAL.Customer>.ForType().
-            //    Map(dest => dest.CustomerId, source => source.Id);
         }
 
         public IList<Models.Customer> GetCustomerDetails(int id = -1)

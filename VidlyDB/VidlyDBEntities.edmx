@@ -22,6 +22,7 @@
           <Property Name="SignUpFee" Type="smallint" Nullable="false" />
           <Property Name="DurationInMonths" Type="tinyint" Nullable="false" />
           <Property Name="DiscountRate" Type="tinyint" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="30" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
@@ -200,6 +201,7 @@
           <Property Name="DurationInMonths" Type="Byte" Nullable="false" />
           <Property Name="DiscountRate" Type="Byte" Nullable="false" />
           <NavigationProperty Name="Customers" Relationship="VidlyModel.fk_MemType_Customer_MemTypeId" FromRole="MembershipType" ToRole="Customer" />
+          <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
         </EntityType>
         <Association Name="fk_MemType_Customer_MemTypeId">
           <End Type="VidlyModel.MembershipType" Role="MembershipType" Multiplicity="0..1">
@@ -272,6 +274,7 @@
           <EntitySetMapping Name="MembershipTypes">
             <EntityTypeMapping TypeName="VidlyModel.MembershipType">
               <MappingFragment StoreEntitySet="MembershipType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="DiscountRate" ColumnName="DiscountRate" />
                 <ScalarProperty Name="DurationInMonths" ColumnName="DurationInMonths" />
                 <ScalarProperty Name="SignUpFee" ColumnName="SignUpFee" />

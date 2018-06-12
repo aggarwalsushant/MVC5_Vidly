@@ -27,6 +27,13 @@ CREATE TABLE MembershipType(
 	,DiscountRate TINYINT NOT NULL
 )
 
+ALTER TABLE MembershipType ADD Name VARCHAR(30);
+GO
+UPDATE MembershipType SET Name='Pay as You Go' WHERE ID=1
+UPDATE MembershipType SET Name='Monthly' WHERE ID=2
+UPDATE MembershipType SET Name='Quarterly' WHERE ID=3
+UPDATE MembershipType SET Name='Annually' WHERE ID=4
+
 ALTER TABLE Customer ADD MembershipTypeId TINYINT;
 CREATE INDEX Index_Customer_MemTypeId ON Customer (MembershipTypeId)
 
