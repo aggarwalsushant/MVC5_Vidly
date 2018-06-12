@@ -55,6 +55,22 @@ ALTER TABLE Movie
 ADD CONSTRAINT FK_CustomerMovie
 FOREIGN KEY (CustomerId) REFERENCES Customer(CustomerId);
 
+ALTER TABLE Movie ADD ReleaseDate DATETIME
+ALTER TABLE Movie ADD DateAdded DATETIME
+ALTER TABLE Movie ADD NumberInStock SMALLINT
+
+UPDATE Movie SET ReleaseDate='26JUN2009',  DateAdded='12JUN2018', NumberInStock=5 WHERE MovieID=1
+UPDATE Movie SET ReleaseDate='12APR2017',  DateAdded='12JUN2018', NumberInStock=10 WHERE MovieID=2
+UPDATE Movie SET ReleaseDate='25DEC2013',  DateAdded='10JUN2018', NumberInStock=12 WHERE MovieID=3
+UPDATE Movie SET ReleaseDate='12MAY2017',  DateAdded='5JUN2018', NumberInStock=9 WHERE MovieID=4
+UPDATE Movie SET ReleaseDate='10FEB2016',  DateAdded='5JUN2018', NumberInStock=18 WHERE MovieID=5
+
+
+ALTER TABLE Movie ALTER COLUMN ReleaseDate DATETIME NOT NULL
+ALTER TABLE Movie ALTER COLUMN NumberInStock SMALLINT NOT NULL
+ALTER TABLE Movie ALTER COLUMN DateAdded DATETIME NOT NULL
+
+
 INSERT INTO MembershipType VALUES (1,0,0,0)
 INSERT INTO MembershipType VALUES (2,30,1,10)
 INSERT INTO MembershipType VALUES (3,90,3,15)

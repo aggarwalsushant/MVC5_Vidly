@@ -6,10 +6,12 @@ using System.Web.Mvc;
 using VidlyModels.Models;
 using Vidly.ViewModels;
 using Vidly.UtilityData;
+using VidlyModels.Models;
 using VidlyBL.BusinessLogic;
 
 namespace Vidly.Controllers
 {
+    [RoutePrefix("Movies")]
     public class MoviesController : Controller
     {
         MovieBL movieBL = new MovieBL();
@@ -32,12 +34,14 @@ namespace Vidly.Controllers
         //movies
         public ActionResult Index()
         {
-            return View(movieBL.GetMovieDetailsBySp() as IEnumerable<Movie>);
+            return View(movieBL.GetMovieDetails() as IEnumerable<Movie>);
         }
 
+        [Route("Details/{id}")]
         public ActionResult Details(int id)
         {
-            return View("Index",movieBL.GetMovieDetails(id) as IEnumerable<Movie>);
+            IList<Movie> list = movieBL.GetMovieDetails(id);
+            return View("MovieDetails",list.Count>0 ? list.FirstOrDefault():null);
         }
 
         [Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")]

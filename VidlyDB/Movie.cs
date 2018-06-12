@@ -18,6 +18,9 @@ namespace VidlyDB
         public string MovieName { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public Nullable<int> CustomerId { get; set; }
+        public System.DateTime ReleaseDate { get; set; }
+        public System.DateTime DateAdded { get; set; }
+        public short NumberInStock { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual MovieCategory MovieCategory { get; set; }

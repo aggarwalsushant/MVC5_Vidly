@@ -33,6 +33,9 @@
           <Property Name="MovieName" Type="varchar" MaxLength="100" />
           <Property Name="CategoryId" Type="int" />
           <Property Name="CustomerId" Type="int" />
+          <Property Name="ReleaseDate" Type="datetime" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="NumberInStock" Type="smallint" Nullable="false" />
         </EntityType>
         <EntityType Name="MovieCategory">
           <Key>
@@ -127,6 +130,9 @@
           <Property Name="CustomerId" Type="Int32" />
           <NavigationProperty Name="Customer" Relationship="VidlyModel.FK_CustomerMovie" FromRole="Movie" ToRole="Customer" />
           <NavigationProperty Name="MovieCategory" Relationship="VidlyModel.FK_CategoryMovie" FromRole="Movie" ToRole="MovieCategory" />
+          <Property Name="ReleaseDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NumberInStock" Type="Int16" Nullable="false" />
         </EntityType>
         <EntityType Name="MovieCategory">
           <Key>
@@ -239,6 +245,9 @@
           <EntitySetMapping Name="Movies">
             <EntityTypeMapping TypeName="VidlyModel.Movie">
               <MappingFragment StoreEntitySet="Movie">
+                <ScalarProperty Name="NumberInStock" ColumnName="NumberInStock" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
                 <ScalarProperty Name="MovieId" ColumnName="MovieId" />
                 <ScalarProperty Name="MovieName" ColumnName="MovieName" />
                 <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
