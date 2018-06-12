@@ -13,6 +13,7 @@
           <Property Name="Name" Type="varchar" MaxLength="100" />
           <Property Name="Address" Type="varchar" MaxLength="100" />
           <Property Name="MembershipTypeId" Type="tinyint" />
+          <Property Name="BirthDate" Type="datetime" />
         </EntityType>
         <EntityType Name="MembershipType">
           <Key>
@@ -114,6 +115,7 @@
           <NavigationProperty Name="Movies" Relationship="VidlyModel.FK_CustomerMovie" FromRole="Customer" ToRole="Movie" />
           <Property Name="MembershipTypeId" Type="Byte" />
           <NavigationProperty Name="MembershipType" Relationship="VidlyModel.fk_MemType_Customer_MemTypeId" FromRole="Customer" ToRole="MembershipType" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Movie">
           <Key>
@@ -226,6 +228,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="VidlyModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="MembershipTypeId" ColumnName="MembershipTypeId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

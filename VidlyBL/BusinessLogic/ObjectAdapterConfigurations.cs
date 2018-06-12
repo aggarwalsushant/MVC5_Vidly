@@ -16,6 +16,7 @@ namespace VidlyBL.BusinessLogic
         }
         public static void RegisterConfigurations()
         {
+            
         }
 
         private static void CustomerModelConfigurations()
@@ -23,10 +24,12 @@ namespace VidlyBL.BusinessLogic
             // Create Adapter configurations between transformations
             // for Models.Customer and DAL.Customer
             TypeAdapterConfig<DAL.Customer, Models.Customer>.ForType().
-                Map(dest => dest.Id, source => source.CustomerId);
+                Map(dest => dest.Id, source => source.CustomerId)
+                .IgnoreNullValues(true);
 
             TypeAdapterConfig<Models.Customer, DAL.Customer>.ForType().
-                Map(dest => dest.CustomerId, source => source.Id);
+                Map(dest => dest.CustomerId, source => source.Id)
+                .IgnoreNullValues(true);
         }
 
         private static void MovieModelConfigurations()
@@ -37,7 +40,8 @@ namespace VidlyBL.BusinessLogic
                    .Map(dest => dest.CategoryDetails, source => source.MovieCategory)
                    //.Map(dest => dest.CategoryDetails.CategoryId, source => source.CategoryId)
                    //.Map(dest => dest.CustomerDetails.Id, source => source.CustomerId)
-                   .Map(dest => dest.CustomerDetails, source => source.Customer);
+                   .Map(dest => dest.CustomerDetails, source => source.Customer)
+                   .IgnoreNullValues(true);
 
             TypeAdapterConfig<Models.Movie, DAL.Movie>.ForType()
                 .Map(dest => dest.MovieId, source => source.Id)
@@ -45,7 +49,8 @@ namespace VidlyBL.BusinessLogic
                 .Map(dest => dest.MovieCategory, source => source.CategoryDetails)
                 //.Map(dest => dest.CategoryId, source => source.CategoryDetails.CategoryId)
                 //.Map(dest => dest.CustomerId, source => source.CustomerDetails.Id)
-                .Map(dest => dest.Customer, source => source.CustomerDetails);
+                .Map(dest => dest.Customer, source => source.CustomerDetails)
+                .IgnoreNullValues(true);
         }
         private static void MovieCategoryConfigurations()
         {

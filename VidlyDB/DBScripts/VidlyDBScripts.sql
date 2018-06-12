@@ -39,6 +39,12 @@ CREATE INDEX Index_Customer_MemTypeId ON Customer (MembershipTypeId)
 
 ALTER TABLE Customer ADD CONSTRAINT fk_MemType_Customer_MemTypeId FOREIGN KEY (MembershipTypeId) REFERENCES MembershipType (Id) ON DELETE CASCADE;
 
+ALTER TABLE Customer ADD BirthDate DATETIME;
+
+UPDATE Customer SET BirthDate = '01MAR88' WHERE ID=1
+UPDATE Customer SET BirthDate = '05JUL84' WHERE ID=2
+UPDATE Customer SET BirthDate = '19FEB88' WHERE ID=3
+
 
 ALTER TABLE Movie
 ADD CONSTRAINT FK_CategoryMovie
