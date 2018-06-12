@@ -55,11 +55,8 @@
     <Compile Include="BusinessLogic\MovieBL.cs" />
     <Compile Include="BusinessLogic\ObjectAdapterConfigurations.cs" />
     <Compile Include="DataAccess\VidlyEntitiesSingleton.cs" />
-    <Compile Include="GenericTypeMapping\CustomerMappingProvider.cs" />
-    <Compile Include="GenericTypeMapping\DataMapper.cs" />
+    <Compile Include="GenericTypeMapping\ObjectMapper.cs" />
     <Compile Include="GenericTypeMapping\MapperInterfaces.cs" />
-    <Compile Include="GenericTypeMapping\MovieCategoryMappingProvider.cs" />
-    <Compile Include="GenericTypeMapping\MovieMappingProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
