@@ -32,11 +32,11 @@ namespace Vidly.Controllers
         public ActionResult New()
         {
             IList<MembershipType> memTypes = customerBL.GetAllMembershipTypes();
-            var viewModel = new NewCustomerViewModel
+            var viewModel = new CustomerFormViewModel
             {
                 MembershipTypes=memTypes
             };
-            return View("Create",viewModel);
+            return View("CustomerForm",viewModel);
         }
 
         [HttpPost]
@@ -44,6 +44,24 @@ namespace Vidly.Controllers
         {
             customerBL.SaveCustomer(customer);
             return RedirectToAction("Index","Customers");
+        }
+
+        // Need to figure this out
+        //[HttpPut]
+        public ActionResult Edit(int id)
+        {
+            Customer customer = customerBL.GetCustomerDetails(id).FirstOrDefault();
+
+            if (customer == null)
+                return HttpNotFound();
+
+            var viewModel = new CustomerFormViewModel
+            {
+                Customer = customer,
+                MembershipTypes = customerBL.GetAllMembershipTypes()
+            };
+
+            return View("CustomerForm",viewModel);
         }
     }
 }

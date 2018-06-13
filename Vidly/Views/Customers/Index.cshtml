@@ -12,13 +12,15 @@
     {
     <tr>
         <th>Customer</th>
-        <th>Discount Rate</th>
+        <th>Membership Type</th>
     </tr>
-        foreach (var item in Model)
+        foreach (var customer in Model)
         {
     <tr>
-        <td>@Html.ActionLink(item.Name, "Details", "Customers", new { item.Id }, null)</td>
-        <td>@item.MembershipType.Name</td>
+        <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { customer.Id }, null)</td>
+        @*<td>@Ajax.ActionLink(customer.Name, "Edit", "Customers", new { customer.Id } ,new AjaxOptions { HttpMethod = "Put" })</td>*@
+
+        <td>@customer.MembershipType.Name</td>
     </tr>
         }
 
