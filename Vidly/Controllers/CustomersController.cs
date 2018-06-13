@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using VidlyModels.Models;
 using Vidly.UtilityData;
 using VidlyBL.BusinessLogic;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -26,6 +27,16 @@ namespace Vidly.Controllers
         {
             IList<Customer> customer = customerBL.GetCustomerDetails(id);
             return View("CustomerDetails", customer.Count>0 ? customer.FirstOrDefault() : null);
+        }
+
+        public ActionResult New()
+        {
+            IList<MembershipType> memTypes = customerBL.GetAllMembershipTypes();
+            var viewModel = new NewCustomerViewModel
+            {
+                MembershipTypes=memTypes
+            };
+            return View("Create",viewModel);
         }
     }
 }

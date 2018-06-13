@@ -44,5 +44,15 @@ namespace VidlyBL.BusinessLogic
             }
             return modelCustomers;
         }
+
+        public IList<Models.MembershipType> GetAllMembershipTypes()
+        {
+            IList<Models.MembershipType> memTypes = new List<Models.MembershipType>();
+            foreach (DAL.MembershipType item in _dal.MembershipTypes)
+            {
+                memTypes.Add(ObjectMapper<DAL.MembershipType, Models.MembershipType>.Instance.Map(item));
+            }
+            return memTypes;
+        }
     }
 }
