@@ -54,5 +54,20 @@ namespace VidlyBL.BusinessLogic
             }
             return memTypes;
         }
+
+        public void SaveCustomer(Models.Customer customer)
+        {
+            try
+            {
+                customer.Id = _dal.Customers.Max(x => x.CustomerId)+1;
+                DAL.Customer dalCust = ObjectMapper<Models.Customer, DAL.Customer>.Instance.Map(customer);
+                _dal.Customers.Add(dalCust);
+                _dal.SaveChanges();
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }
