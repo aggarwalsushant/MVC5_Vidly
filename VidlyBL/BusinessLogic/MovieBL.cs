@@ -10,7 +10,7 @@ namespace VidlyBL.BusinessLogic
 {
     public class MovieBL
     {
-        DAL.VidlyEntities _dal = VidlyEntitiesSingleton.Instance;
+        DAL.VidlyEntities _context = VidlyEntitiesSingleton.Instance;
 
         static MovieBL()
         {
@@ -21,14 +21,14 @@ namespace VidlyBL.BusinessLogic
             IList<Models.Movie> modelMovies = new List<Models.Movie>();
             if (id != -1)
             {
-                DAL.Movie movie = _dal.Movies.Include("Customer").Include("MovieCategory"). // Including all foreign key objects
+                DAL.Movie movie = _context.Movies.Include("Customer").Include("MovieCategory"). // Including all foreign key objects
                     Where(x => x.MovieId == id).FirstOrDefault();
 
                 if (movie != null)
-                    modelMovies.Add(ObjectMapper<DAL.Movie,Models.Movie>.Instance.Map(movie));
+                    modelMovies.Add(Mapper<DAL.Movie,Models.Movie>.Instance.Map(movie));
             }
             else
-                _dal.Movies.Include("Customer").Include("MovieCategory").ToList().ForEach(x => modelMovies.Add(ObjectMapper<DAL.Movie, Models.Movie>.Instance.Map(x))); // Including all foreign key objects
+                _context.Movies.Include("Customer").Include("MovieCategory").ToList().ForEach(x => modelMovies.Add(Mapper<DAL.Movie, Models.Movie>.Instance.Map(x))); // Including all foreign key objects
 
             return modelMovies;
         }
@@ -39,26 +39,26 @@ namespace VidlyBL.BusinessLogic
 
             if (id != -1)
             {
-                var movies = _dal.SP_GetMovieById(id);
+                var movies = _context.SP_GetMovieById(id);
                 if (movies != null && movies.Count() > 0)
                 {
                     foreach (DAL.SP_GetMovieById_Result item in movies.ToList())
                     {
-                        modelMovies.Add(ObjectMapper<DAL.Movie, Models.Movie>.Instance.Map(
-                            ObjectMapper<DAL.SP_GetMovieById_Result, DAL.Movie>.Instance.Map(item)
+                        modelMovies.Add(Mapper<DAL.Movie, Models.Movie>.Instance.Map(
+                            Mapper<DAL.SP_GetMovieById_Result, DAL.Movie>.Instance.Map(item)
                             ));
                     }
                 }
             }
             else
             {
-                var movies = _dal.SP_GetAllMovies();
+                var movies = _context.SP_GetAllMovies();
                 if (movies != null)
                 {
                     foreach (DAL.SP_GetAllMovies_Result item in movies.ToList())
                     {
-                        modelMovies.Add(ObjectMapper<DAL.Movie, Models.Movie>.Instance.Map(
-                            ObjectMapper<DAL.SP_GetAllMovies_Result, DAL.Movie>.Instance.Map(item)
+                        modelMovies.Add(Mapper<DAL.Movie, Models.Movie>.Instance.Map(
+                            Mapper<DAL.SP_GetAllMovies_Result, DAL.Movie>.Instance.Map(item)
                             ));
                     }
                 }

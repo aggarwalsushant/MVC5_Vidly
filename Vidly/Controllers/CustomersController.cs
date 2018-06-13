@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using VidlyModels.Models;
-using Vidly.UtilityData;
-using VidlyBL.BusinessLogic;
 using Vidly.ViewModels;
+using VidlyBL.BusinessLogic;
+using VidlyModels.Models;
 
 namespace Vidly.Controllers
 {
@@ -40,9 +37,23 @@ namespace Vidly.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Customer customer)
+        public ActionResult Save(Customer customer)
         {
-            customerBL.SaveCustomer(customer);
+            if (customer.Id==0)
+                customerBL.SaveCustomer(customer);
+            else
+            {
+                Customer savedCustomer = customerBL.GetCustomerDetails(customer.Id).Single();
+                savedCustomer.Id = customer.Id;
+                savedCustomer.Name = customer.Name;
+                savedCustomer.IsSubscribedToNewsletter = customer.IsSubscribedToNewsletter;
+                savedCustomer.MembershipType = customer.MembershipType;
+                savedCustomer.MembershipTypeId = customer.MembershipTypeId;
+                savedCustomer.BirthDate = customer.BirthDate;
+
+                customerBL.UpdateCustomer(savedCustomer);
+
+            }
             return RedirectToAction("Index","Customers");
         }
 
