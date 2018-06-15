@@ -66,5 +66,39 @@ namespace VidlyBL.BusinessLogic
 
             return modelMovies;
         }
+
+        public void SaveMovie(Models.Movie movie)
+        {
+            try
+            {
+                movie.Id = _context.Movies.Max(x => x.MovieId) + 1;
+                movie.DateAdded = System.DateTime.Now;
+                DAL.Movie dalMovie = Mapper<Models.Movie, DAL.Movie>.Instance.Map(movie);
+                _context.Movies.Add(dalMovie);
+                _context.SaveChanges();
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
+
+        public void UpdateMovie(Models.Movie movie)
+        {
+            try
+            {
+                DAL.Movie dalMovie = _context.Movies.Where(x => x.MovieId == movie.Id).Single();
+                
+                dalMovie.CategoryId = movie.CategoryId;
+                dalMovie.MovieName = movie.Name;
+                dalMovie.ReleaseDate = movie.ReleaseDate;
+                dalMovie.NumberInStock = movie.NumberInStock;
+                _context.SaveChanges();
+            }
+            catch (System.Exception e)
+            {
+                throw e;
+            }
+        }
     }
 }

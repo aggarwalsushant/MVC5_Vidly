@@ -41,6 +41,8 @@ namespace VidlyBL.BusinessLogic
                    //.Map(dest => dest.CategoryDetails.CategoryId, source => source.CategoryId)
                    //.Map(dest => dest.CustomerDetails.Id, source => source.CustomerId)
                    .Map(dest => dest.CustomerDetails, source => source.Customer)
+                   //.Map(dest => dest.DateAdded.Value, source => source.DateAdded)
+                   //.Map(dest => dest.DateAdded.Value, source => source.DateAdded)
                    .IgnoreNullValues(true);
 
             TypeAdapterConfig<Models.Movie, DAL.Movie>.ForType()
@@ -50,6 +52,12 @@ namespace VidlyBL.BusinessLogic
                 //.Map(dest => dest.CategoryId, source => source.CategoryDetails.CategoryId)
                 //.Map(dest => dest.CustomerId, source => source.CustomerDetails.Id)
                 .Map(dest => dest.Customer, source => source.CustomerDetails)
+                
+                .Map(dest => dest.ReleaseDate, source => new DateTime(1753,1,1), srcCondition=> srcCondition.ReleaseDate==DateTime.MinValue)
+                .Map(dest => dest.ReleaseDate, source => source.ReleaseDate)
+
+                .Map(dest => dest.DateAdded, source => new DateTime(1753, 1, 1), srcCondition => srcCondition.DateAdded == DateTime.MinValue)
+                .Map(dest => dest.DateAdded, source => source.DateAdded)
                 .IgnoreNullValues(true);
         }
         private static void MovieCategoryConfigurations()

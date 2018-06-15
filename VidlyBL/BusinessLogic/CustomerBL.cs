@@ -11,6 +11,7 @@ namespace VidlyBL.BusinessLogic
     public class CustomerBL
     {
         DAL.VidlyEntities _context = VidlyEntitiesSingleton.Instance;
+
         static CustomerBL()
         {
             ObjectAdapterConfigurations.RegisterConfigurations();
@@ -74,7 +75,6 @@ namespace VidlyBL.BusinessLogic
         {
             try
             {
-                //DAL.Customer dalCust = Mapper<Models.Customer, DAL.Customer>.Instance.Map(customer);
                 DAL.Customer cust = _context.Customers.Where(x => x.CustomerId == customer.Id).Single();
                 Mapper<Models.Customer, DAL.Customer>.Instance.MapExisting(customer, cust);
                 _context.SaveChanges();
