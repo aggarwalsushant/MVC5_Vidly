@@ -30,3 +30,12 @@ textarea {
 .navbarHeaderRight td {
     text-align: right;
 }
+
+.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: 2px solid;
+    border-color: red;
+}

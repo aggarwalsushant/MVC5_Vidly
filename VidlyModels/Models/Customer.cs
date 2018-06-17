@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using VidlyModels.CustomValidations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,6 +25,7 @@ namespace VidlyModels.Models
         public byte MembershipTypeId { get; set; }
 
         [Display(Name="Date of Birth")]
+        [Min18YrsIfaMember]
         public DateTime? BirthDate { get; set; }
     }
 }
