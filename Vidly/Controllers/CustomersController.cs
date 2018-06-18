@@ -31,12 +31,14 @@ namespace Vidly.Controllers
             IList<MembershipType> memTypes = customerBL.GetAllMembershipTypes();
             var viewModel = new CustomerFormViewModel
             {
+                Customer = new Customer(),
                 MembershipTypes=memTypes
             };
             return View("CustomerForm",viewModel);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
             ///adding validation now
@@ -60,6 +62,8 @@ namespace Vidly.Controllers
 
         // Need to figure this out
         //[HttpPut]
+        [ValidateAntiForgeryToken]
+
         public ActionResult Edit(int id)
         {
             Customer customer = customerBL.GetCustomerDetails(id).FirstOrDefault();

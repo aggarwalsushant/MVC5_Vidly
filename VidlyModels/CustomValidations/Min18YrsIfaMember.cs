@@ -18,7 +18,7 @@ namespace VidlyModels.CustomValidations
             if (customer == null)
                 return new ValidationResult("Customer details are null");
 
-            if (new int[] { 0, 1 }.Contains(customer.MembershipTypeId))
+            if (new int[] { Customer.Unknown, Customer.PayAsYouGo }.Contains(customer.MembershipTypeId))
                 return ValidationResult.Success;
 
             if (customer.BirthDate==null)

@@ -31,7 +31,7 @@ textarea {
     text-align: right;
 }
 
-.field-validation-error {
+.field-validation-error, .validation-summary-errors {
     color: red;
 }
 

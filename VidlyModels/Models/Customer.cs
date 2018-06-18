@@ -27,5 +27,10 @@ namespace VidlyModels.Models
         [Display(Name="Date of Birth")]
         [Min18YrsIfaMember]
         public DateTime? BirthDate { get; set; }
+
+        // Avoiding magic numbers with static fields or could be used with enum
+        public static readonly byte Unknown = 0;
+        public static readonly byte PayAsYouGo = 1;
+
     }
 }
