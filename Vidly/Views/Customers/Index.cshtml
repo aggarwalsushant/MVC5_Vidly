@@ -6,13 +6,14 @@
 }
 
 <h1>Customers</h1>
-<table class="table	table-bordered	table-hover">
+<table id="customers" class="table	table-bordered	table-hover">
 
     @if (Model.Count() > 0)
     {
     <tr>
         <th>Customer</th>
         <th>Membership Type</th>
+        <th>Delete</th>
     </tr>
         foreach (var customer in Model)
         {
@@ -21,6 +22,9 @@
         @*<td>@Ajax.ActionLink(customer.Name, "Edit", "Customers", new { customer.Id } ,new AjaxOptions { HttpMethod = "Put" })</td>*@
 
         <td>@customer.MembershipType.Name</td>
+        <td>
+            <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+        </td>
     </tr>
         }
 
@@ -30,3 +34,29 @@
         <tr><td>No customers have been added yet.</td></tr>
     }
 </table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#customers .js-delete").on("click", function () {
+                var button = $(this);
+
+                if (confirm("Are you sure you want to delete this customer?")) {
+                    $.ajax({
+                        url: "http://localhost:12345/api/customers/remove/" + button.attr("data-customer-id"),
+                        method: "DELETE",
+                        //crossDomain: true,
+                        success: function () {
+                            button.parents("tr").remove();
+                        },
+                        failure: function () {
+                            console.log("failed");
+                        }
+                    });
+                }
+            });
+
+        });
+    </script>
+}

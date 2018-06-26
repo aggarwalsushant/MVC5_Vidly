@@ -5,6 +5,7 @@ using Models = VidlyModels.Models;
 using VidlyBL.GenericTypeMapping;
 using VidlyBL.DataAccess;
 using Mapster;
+using System;
 
 namespace VidlyBL.BusinessLogic
 {
@@ -83,6 +84,26 @@ namespace VidlyBL.BusinessLogic
             {
                 throw e;
             }
+        }
+
+        public bool DeleteCustomer(int id)
+        {
+            var flag = false;
+            try
+            {
+                var customer = _context.Customers.Single(x => x.CustomerId == id);
+                if (customer!=null)
+                    _context.Customers.Remove(customer);
+
+                flag = true;
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+
+            return flag;
         }
     }
 }
