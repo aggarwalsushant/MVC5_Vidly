@@ -7,9 +7,6 @@
 
 <h1>Customers</h1>
 <table id="customers" class="table	table-bordered	table-hover">
-
-    @if (Model.Count() > 0)
-    {
     <thead>
         <tr>
             <th>Customer</th>
@@ -18,31 +15,64 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var customer in Model)
-        {
-        <tr>
-            <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { customer.Id }, null)</td>
-            @*<td>@Ajax.ActionLink(customer.Name, "Edit", "Customers", new { customer.Id } ,new AjaxOptions { HttpMethod = "Put" })</td>*@
+        @*@foreach (var customer in Model)
+            {
+            <tr>
+                <td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { customer.Id }, null)</td>
+                @*<td>@Ajax.ActionLink(customer.Name, "Edit", "Customers", new { customer.Id } ,new AjaxOptions { HttpMethod = "Put" })</td>*@
 
-            <td>@customer.MembershipType.Name</td>
-            <td>
-                <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
-            </td>
-        </tr>
-        }
-    </tbody>
-    }
-    else
-    {
-        <thead><tr><td>No customers have been added yet.</td></tr></thead><tbody></tbody>
-    }
-</table>
+        @*<td>@customer.MembershipType.Name</td>
+                <td>
+                    <button data-customer-id="@customer.Id" class="btn-link js-delete">Delete</button>
+                </td>
+            </tr>
+            }*@
+        </tbody>
+        @*@if (Model.Count() > 0)
+            {
+
+            }
+            else
+            {
+                <thead><tr><td>No customers have been added yet.</td></tr></thead><tbody></tbody>
+            }*@
+    </table>
 
 @section scripts
 {
     <script>
         $(document).ready(function () {
-            $("#customers").DataTable();
+            var table = $("#customers").DataTable({
+                ajax: {
+                    url: "http://localhost:12345/api/customers/",
+                    dataSrc:""
+                },
+                columns: [
+                    {
+                        data: "name", // property of the customer object we need to access to show
+                        render: function (data, type, customer) {
+                            //console.log(JSON.stringify(customer, null, 4)); // shows the data of the customer returned from API
+                            return "<a href='/customers/edit/" + customer.id + "'>" + customer.name + "</a>";
+
+                        }
+                    },
+                    {
+                        data: "membershipType", // property of the customer object we need to access to show
+                        render: function (data, type, customer) {
+                            return data.name;
+
+                        }
+                    },
+                    {
+                        data: "id", // property of the customer object we need to access to show
+                        render: function (data) {
+                            return "<button class='btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
+
+                        }
+                    }
+
+                ]
+            });
 
 
             $("#customers .js-delete").on("click", function () {
@@ -54,7 +84,8 @@
                         method: "DELETE",
                         //crossDomain: true,
                         success: function () {
-                            button.parents("tr").remove();
+                            table.row(button.parents("tr")).remove().draw();
+                            //button.parents("tr").remove();
                         },
                         failure: function () {
                             console.log("failed");

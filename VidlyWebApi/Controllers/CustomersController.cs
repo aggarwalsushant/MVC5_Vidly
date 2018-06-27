@@ -33,8 +33,10 @@ namespace VidlyWebApi.Controllers
 
         [HttpGet]
         //[Route("GetVague")]
-
-        public string GetVague() => "Hello Hello!!!";
+        public IList<Models.Customer> GetAllCustomers()
+        {
+            return customerBL.GetAllCustomers();
+        }
 
         [HttpDelete]
         [Route("remove")]

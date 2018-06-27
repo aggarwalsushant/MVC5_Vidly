@@ -18,7 +18,9 @@ namespace Vidly.Controllers
         public ActionResult Index()
         {
             //return View(customerBL.GetCustomerDetails() as IEnumerable<Customer>);
-            return View(customerBL.GetAllCustomers() as IEnumerable<Customer>);
+            //return View(customerBL.GetAllCustomers() as IEnumerable<Customer>);
+            return View();
+
 
         }
 
