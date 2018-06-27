@@ -39,3 +39,7 @@ textarea {
     border: 2px solid;
     border-color: red;
 }
+
+.form-inline {
+    display: block !important;
+}
